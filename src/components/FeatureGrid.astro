@@ -1,0 +1,69 @@
+---
+import BookOpen from '../icons/BookOpen.astro';
+import ListOrdered from '../icons/ListOrdered.astro';
+import Bookmark from '../icons/Bookmark.astro';
+import RefreshCw from '../icons/RefreshCw.astro';
+import MessageCircle from '../icons/MessageCircle.astro';
+import BarChart from '../icons/BarChart.astro';
+
+const features = [
+  {
+    icon: 'bookopen',
+    title: 'Markdown 阅读器',
+    desc: '原生 Markdown 渲染引擎，支持标题、列表、代码块、引用等丰富排版元素，阅读体验流畅自然。',
+  },
+  {
+    icon: 'list',
+    title: '章节导航',
+    desc: '清晰的章节目录结构，一键跳转到任意章节，长篇阅读也能轻松管理。',
+  },
+  {
+    icon: 'bookmark',
+    title: '个人书架',
+    desc: '一键收藏心仪书籍到个人书架，支持批量管理，随时找到你想读的书。',
+  },
+  {
+    icon: 'refresh',
+    title: '阅读进度同步',
+    desc: '自动记录阅读进度，多设备无缝同步，随时从上次中断的地方继续阅读。',
+  },
+  {
+    icon: 'message',
+    title: '评论互动',
+    desc: '对喜欢的书籍发表评论、回复其他读者，在阅读中分享观点、碰撞思想。',
+  },
+  {
+    icon: 'chart',
+    title: '阅读统计',
+    desc: '详细的阅读时长、书籍数量统计，直观了解自己的阅读习惯，持续保持阅读动力。',
+  },
+];
+
+const iconMap: Record<string, any> = {
+  bookopen: BookOpen,
+  list: ListOrdered,
+  bookmark: Bookmark,
+  refresh: RefreshCw,
+  message: MessageCircle,
+  chart: BarChart,
+};
+---
+
+<section class="py-20 bg-surface">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feature) => {
+        const IconComponent = iconMap[feature.icon];
+        return (
+          <div class="bg-white rounded-2xl p-7 shadow-sm card-hover" data-reveal>
+            <div class="w-12 h-12 bg-brand-lighter rounded-xl flex items-center justify-center text-brand mb-5">
+              <IconComponent class="w-6 h-6" />
+            </div>
+            <h3 class="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{feature.desc}</p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

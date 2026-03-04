@@ -1,0 +1,71 @@
+---
+const freeFeatures = [
+  { name: '浏览书籍目录', included: true },
+  { name: '免费书籍阅读', included: true },
+  { name: '个人书架收藏', included: true },
+  { name: '评论互动', included: true },
+  { name: '付费书籍阅读', included: false },
+  { name: '阅读进度同步', included: false },
+  { name: '阅读统计', included: false },
+];
+
+const memberFeatures = [
+  { name: '浏览书籍目录', included: true },
+  { name: '免费书籍阅读', included: true },
+  { name: '个人书架收藏', included: true },
+  { name: '评论互动', included: true },
+  { name: '全部书籍无限阅读', included: true },
+  { name: '阅读进度云同步', included: true },
+  { name: '详细阅读统计', included: true },
+];
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14" data-reveal>
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">选择适合你的方案</h2>
+      <p class="text-text-secondary">免费畅读精选内容，升级会员解锁全部体验</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal>
+      <!-- 免费用户 -->
+      <div class="rounded-2xl border border-gray-200 p-8">
+        <h3 class="text-xl font-bold text-text-primary mb-1">免费用户</h3>
+        <p class="text-text-secondary text-sm mb-6">基础阅读体验</p>
+        <ul class="space-y-3">
+          {freeFeatures.map((f) => (
+            <li class="flex items-center gap-3 text-sm">
+              {f.included ? (
+                <svg class="w-5 h-5 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <svg class="w-5 h-5 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+              <span class={f.included ? 'text-text-primary' : 'text-gray-400'}>{f.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- 会员用户 -->
+      <div class="rounded-2xl border-2 border-brand bg-brand-lighter/30 p-8 relative">
+        <span class="absolute -top-3 left-6 bg-brand text-white text-xs font-medium px-3 py-1 rounded-full">推荐</span>
+        <h3 class="text-xl font-bold text-text-primary mb-1">会员用户</h3>
+        <p class="text-text-secondary text-sm mb-6">完整阅读体验</p>
+        <ul class="space-y-3">
+          {memberFeatures.map((f) => (
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-text-primary">{f.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

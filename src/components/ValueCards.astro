@@ -1,0 +1,46 @@
+---
+import BookOpen from '../icons/BookOpen.astro';
+import Sparkles from '../icons/Sparkles.astro';
+import Smartphone from '../icons/Smartphone.astro';
+
+const values = [
+  {
+    icon: 'book',
+    title: '沉浸阅读',
+    desc: '精心设计的阅读界面，去除一切干扰，让你专注于文字的力量，享受纯粹的阅读体验。',
+  },
+  {
+    icon: 'sparkles',
+    title: '智慧成长',
+    desc: '阅读统计与进度追踪，记录你的每一步成长，让阅读习惯可视化，见证知识的积累。',
+  },
+  {
+    icon: 'smartphone',
+    title: '随时随地',
+    desc: '多平台同步，无论手机、平板还是电脑，你的书架和阅读进度始终随你而行。',
+  },
+];
+---
+
+<section class="py-20 bg-surface">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14" data-reveal>
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">为阅读而生</h2>
+      <p class="text-text-secondary max-w-xl mx-auto">我们相信，好的工具能让阅读变得更美好</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {values.map((item) => (
+        <div class="bg-white rounded-2xl p-8 shadow-sm card-hover" data-reveal>
+          <div class="w-12 h-12 bg-brand-lighter rounded-xl flex items-center justify-center text-brand mb-5">
+            {item.icon === 'book' && <BookOpen class="w-6 h-6" />}
+            {item.icon === 'sparkles' && <Sparkles class="w-6 h-6" />}
+            {item.icon === 'smartphone' && <Smartphone class="w-6 h-6" />}
+          </div>
+          <h3 class="text-xl font-semibold text-text-primary mb-3">{item.title}</h3>
+          <p class="text-text-secondary leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

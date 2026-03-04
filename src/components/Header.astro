@@ -1,0 +1,103 @@
+---
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: '/', label: '首页' },
+  { href: '/features', label: '功能介绍' },
+  { href: '/about', label: '关于我们' },
+];
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 shrink-0">
+        <img src="/logo.png" alt="格文笔记" class="w-8 h-8 rounded-lg" />
+        <span class="text-lg font-semibold text-white header-scrolled:text-text-primary transition-colors duration-300">
+          格文笔记
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'text-sm font-medium transition-colors duration-300',
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? 'text-white header-scrolled:text-brand border-b-2 border-white header-scrolled:border-brand pb-0.5'
+                : 'text-white/80 hover:text-white header-scrolled:text-text-secondary header-scrolled:hover:text-brand',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 text-white header-scrolled:text-text-primary transition-colors"
+        aria-label="打开菜单"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+    <nav class="px-4 py-3 space-y-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'block px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'text-brand bg-brand-lighter'
+              : 'text-text-primary hover:bg-gray-100',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const menuIcon = document.getElementById('menu-icon')!;
+
+  // 滚动效果
+  function updateHeader() {
+    if (window.scrollY > 20) {
+      header.classList.add('bg-white', 'shadow-sm', 'scrolled');
+    } else {
+      header.classList.remove('bg-white', 'shadow-sm', 'scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  // 移动端菜单
+  mobileMenuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    menuIcon.setAttribute('d', isOpen ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');
+  });
+</script>
+
+<style>
+  /* 当 header 有 scrolled 类时，切换文字颜色 */
+  :global(.scrolled) .header-scrolled\:text-text-primary { color: var(--color-text-primary); }
+  :global(.scrolled) .header-scrolled\:text-text-secondary { color: var(--color-text-secondary); }
+  :global(.scrolled) .header-scrolled\:text-brand { color: var(--color-brand); }
+  :global(.scrolled) .header-scrolled\:hover\:text-brand:hover { color: var(--color-brand); }
+  :global(.scrolled) .header-scrolled\:border-brand { border-color: var(--color-brand); }
+</style>
